@@ -41,6 +41,7 @@ $lang['return_to_list'] = 'Return to list';
 $lang['return_to_astreinte'] = 'Return to astreinte';
 
 $lang['regen_ticket_times'] = 'Regen Times...';
+$lang['hour_base_amount'] = 'Hour base amount';
 
 $lang['100_percent'] = '100%';
 $lang['125_percent'] = '125%';

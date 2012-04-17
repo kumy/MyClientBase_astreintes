@@ -15,6 +15,8 @@ class Astreintes_Settings extends Admin_Controller {
 		 * execute when the system settings are saved.
 		 */
 
+        $this->mdl_mcb_data->save('hour_base_amount', $this->input->post('hour_base_amount'));
+        
         $this->mdl_mcb_data->save('nightly_hours_start', $this->input->post('nightly_hours_start'));
         $this->mdl_mcb_data->save('nightly_hours_end', $this->input->post('nightly_hours_end'));
 

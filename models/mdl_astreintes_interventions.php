@@ -6,7 +6,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
     var $debug = false;
     var $limit = 0;
 
-    var $oneHour = 21.0984;
+    var $oneHour = 0;
     var $jours = array( 1 => 'Lun', 2 => 'Mar', 3 => 'Mer', 4 => 'Jeu', 5 => 'Ven', 6 => 'Sam', 7 => 'Dim');
 
     var $percents = array(
@@ -36,6 +36,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
                 'start' => $this->mdl_mcb_data->setting('nightly_hours_start'),
                 'end'   => $this->mdl_mcb_data->setting('nightly_hours_end')
         );
+        $this->oneHour = $this->mdl_mcb_data->setting('hour_base_amount');
 
     }
 

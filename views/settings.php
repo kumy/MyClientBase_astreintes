@@ -1,4 +1,10 @@
 <dl>
+	<dt><?php echo $this->lang->line('hour_base_amount');?></dt>
+	<dd>
+		<input type="text" name="hour_base_amount" value="<?php echo $this->mdl_mcb_data->setting('hour_base_amount');?>" />
+	</dd>
+</dl>
+<dl>
 	<dt><?php echo $this->lang->line('nightly_hours_start');?></dt>
 	<dd>
 		<input type="text" name="nightly_hours_start" value="<?php echo $this->mdl_mcb_data->setting('nightly_hours_start');?>" />
