@@ -152,8 +152,8 @@ class Astreintes extends Admin_Controller {
 					'astreinte_id'		=> $astreinte_id
 				     );
 
-			$this->load->view('add', $data);
-			#$this->redir->redirect('astreintes/add/astreinte_id/'.$astreinte_id);
+			#$this->load->view('add', $data);
+			$this->redir->redirect('astreintes/add/astreinte_id/'.$astreinte_id);
 
 		}
 
