@@ -111,19 +111,21 @@ class Astreintes extends Admin_Controller {
 				$this->mdl_astreintes->set_form_value('start_date', format_date(time()));
 			}
 
-			$params_inventory = array(
-					'where'		=>	array( 'mcb_inventory.inventory_type_id' => 3)
-					);
+            $params = array();
+            if ($this->mdl_mcb_data->setting('astr_inventory_type')) {
+                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_inventory_type'));
+            }
+            $inventory_items = $this->mdl_inventory->get($params);
 
-			$params = array(
-					'where'		=>	array( 'astreinte_id' => $astreinte_id),
-					'order_by'	=> 	'start_date_time'
-				       );
+            $params = array(
+                    'where'		=>	array( 'astreinte_id' => $astreinte_id),
+                    'order_by'	=> 	'start_date_time'
+                    );
 
 			$data = array(
 				'tab_index'		=> $tab_index,
 				'astreinte_id'		=> $astreinte_id,
-				'inventory_items' 	=> $this->mdl_inventory->get($params_inventory),
+				'inventory_items' 	=> $inventory_items,
 				'forfait'		=> $this->mdl_inventory->get($param_forfait_price),
 				'interventions'		=> $this->mdl_astreintes_interventions->get($params),
 				'clients'		=> $this->mdl_clients->get()

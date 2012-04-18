@@ -22,4 +22,17 @@
         <input type="checkbox" name="astr_dashboard_show_astreintes" value="TRUE" <?php if($this->mdl_mcb_data->setting('astr_dashboard_show_astreintes') == "TRUE"){?>checked<?php }?> />
     </dd>
 </dl>
+<dl>
+    <dt><?php echo $this->lang->line('astr_forfait_inventory_type');?></dt>
+    <dd>
+        <select name="astr_inventory_type" id="astr_inventory_type">
+            <option value=""></option>
+            <?php foreach ($inventory_items as $item) { ?>
+            <option value="<?php echo $item->inventory_type_id; ?>"
+                <?php if ($this->mdl_mcb_data->setting('astr_inventory_type') == $item->inventory_type_id) { ?>selected="selected"<?php } ?>><?php echo $item->inventory_type; ?>
+            </option>
+        <?php } ?>
+        </select>
+    </dd>
+</dl>
 

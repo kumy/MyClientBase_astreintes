@@ -49,4 +49,6 @@ $lang['200_percent'] = '200%';
 
 $lang['astr_hour_base_amount'] = 'Hour base amount';
 $lang['astr_dashboard_show_astreintes'] = 'Show astreintes on dashboard';
+$lang['astr_forfait_inventory_type'] = 'Filter inventory type for the forfait';
+
 ?>
