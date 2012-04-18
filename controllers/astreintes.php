@@ -100,13 +100,14 @@ class Astreintes extends Admin_Controller {
 
 		if (!$this->mdl_astreintes->validate()) {
 
-			$param_forfait_price = array();
+			$forfait_price = 0;
 
 			if (!$_POST AND $astreinte_id) {
 				$this->mdl_astreintes->prep_validation($astreinte_id);
-				$param_forfait_price = array(
+				$param = array(
 						'where' => array( 'mcb_inventory.inventory_id' => $this->mdl_astreintes->form_values['inventory_id'])
 						);
+                $forfait_price = $this->mdl_inventory->get($param);
 			} elseif (!$_POST AND !$astreinte_id) {
 				$this->mdl_astreintes->set_form_value('start_date', format_date(time()));
 			}
@@ -121,14 +122,15 @@ class Astreintes extends Admin_Controller {
                     'where'		=>	array( 'astreinte_id' => $astreinte_id),
                     'order_by'	=> 	'start_date_time'
                     );
+            $interventions = $this->mdl_astreintes_interventions->get($params);
 
 			$data = array(
-				'tab_index'		=> $tab_index,
+				'tab_index'		    => $tab_index,
 				'astreinte_id'		=> $astreinte_id,
 				'inventory_items' 	=> $inventory_items,
-				'forfait'		=> $this->mdl_inventory->get($param_forfait_price),
-				'interventions'		=> $this->mdl_astreintes_interventions->get($params),
-				'clients'		=> $this->mdl_clients->get()
+				'forfait'		    => $forfait_price,
+				'interventions'		=> $interventions,
+				'clients'		    => $this->mdl_clients->get()
 			);
 
 			$this->load->view('add', $data);
@@ -139,18 +141,22 @@ class Astreintes extends Admin_Controller {
 				$astreinte_id = $this->db->insert_id();
 			}
 
-			$params_inventory = array(
-					'where'		=>	array( 'mcb_inventory.inventory_type_id' => 3)
-					);
-			$param_forfait_price = array(
-					'where' => array( 'mcb_inventory.inventory_id' => $this->mdl_astreintes->form_values['inventory_id'])
-					);
+            $params = array();
+            if ($this->mdl_mcb_data->setting('astr_inventory_type')) {
+                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_inventory_type'));
+            }
+            $inventory_items = $this->mdl_inventory->get($params);
+
+            $param = array(
+                    'where' => array( 'mcb_inventory.inventory_id' => $this->mdl_astreintes->form_values['inventory_id'])
+                    );
+            $forfait_price = $this->mdl_inventory->get($param_forfait_price);
 
 			$data = array(
-					'tab_index'		=> $tab_index,
-					'inventory_items' 	=> $this->mdl_inventory->get($params_inventory),
-					'clients'		=> $this->mdl_clients->get(),
-					'forfait'		=> $this->mdl_inventory->get($param_forfait_price),
+					'tab_index'		    => $tab_index,
+					'inventory_items' 	=> $inventory_items,
+					'clients'		    => $this->mdl_clients->get(),
+					'forfait'		    => $forfait_price,
 					'astreinte_id'		=> $astreinte_id
 				     );
 
