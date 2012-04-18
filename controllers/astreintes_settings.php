@@ -7,6 +7,7 @@ class Astreintes_Settings extends Admin_Controller {
         $this->load->model(
                 array(
                     'inventory/mdl_inventory_types',
+                    'inventory/mdl_inventory',
                     )
                 );
 
@@ -14,10 +15,17 @@ class Astreintes_Settings extends Admin_Controller {
                 'select'    =>  '*',
                 );
 
-        $inventory_items = $this->mdl_inventory_types->get($params);
+        $inventory_types = $this->mdl_inventory_types->get($params);
+
+        $params = array(
+                'select'    =>  '*',
+                );
+
+        $inventory_items = $this->mdl_inventory->get($params);
 
         $data = array(
-                'inventory_items'     =>  $inventory_items
+                'inventory_types'     =>  $inventory_types,
+                'inventory_items'     =>  $inventory_items,
                 );
 
         $this->load->view('settings', $data);
@@ -31,8 +39,8 @@ class Astreintes_Settings extends Admin_Controller {
 		 * execute when the system settings are saved.
 		 */
 
-        $this->mdl_mcb_data->save('astr_hour_base_amount', $this->input->post('astr_hour_base_amount'));
-        $this->mdl_mcb_data->save('astr_inventory_type', $this->input->post('astr_inventory_type'));
+        $this->mdl_mcb_data->save('astr_forfait_filter_inventory_type', $this->input->post('astr_forfait_filter_inventory_type'));
+        $this->mdl_mcb_data->save('astr_base_hour_inventory', $this->input->post('astr_base_hour_inventory'));
         
         $this->mdl_mcb_data->save('astr_nightly_hours_start', $this->input->post('astr_nightly_hours_start'));
         $this->mdl_mcb_data->save('astr_nightly_hours_end', $this->input->post('astr_nightly_hours_end'));

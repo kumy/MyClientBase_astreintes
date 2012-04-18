@@ -113,8 +113,8 @@ class Astreintes extends Admin_Controller {
 			}
 
             $params = array();
-            if ($this->mdl_mcb_data->setting('astr_inventory_type')) {
-                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_inventory_type'));
+            if ($this->mdl_mcb_data->setting('astr_forfait_filter_inventory_type')) {
+                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_forfait_filter_inventory_type'));
             }
             $inventory_items = $this->mdl_inventory->get($params);
 
@@ -142,8 +142,8 @@ class Astreintes extends Admin_Controller {
 			}
 
             $params = array();
-            if ($this->mdl_mcb_data->setting('astr_inventory_type')) {
-                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_inventory_type'));
+            if ($this->mdl_mcb_data->setting('astr_forfait_filter_inventory_type')) {
+                $params['where']	=	array( 'mcb_inventory.inventory_type_id' => $this->mdl_mcb_data->setting('astr_forfait_filter_inventory_type'));
             }
             $inventory_items = $this->mdl_inventory->get($params);
 

@@ -6,7 +6,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
     var $debug = false;
     var $limit = 0;
 
-    var $oneHour = 0;
+    var $oneHour;
     var $jours = array( 1 => 'Lun', 2 => 'Mar', 3 => 'Mer', 4 => 'Jeu', 5 => 'Ven', 6 => 'Sam', 7 => 'Dim');
 
     var $percents = array(
@@ -36,7 +36,11 @@ class Mdl_Astreintes_Interventions extends MY_Model {
                 'start' => $this->mdl_mcb_data->setting('astr_nightly_hours_start'),
                 'end'   => $this->mdl_mcb_data->setting('astr_nightly_hours_end')
         );
-        $this->oneHour = $this->mdl_mcb_data->setting('astr_hour_base_amount');
+
+        $this->load->model('inventory/mdl_inventory');
+
+        $hour_inventory_id = $this->mdl_mcb_data->setting('astr_base_hour_inventory');
+        $this->oneHour = $this->mdl_inventory->get_by_id($hour_inventory_id);
 
     }
 
@@ -429,7 +433,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
 
             $this->db->query("
             INSERT INTO mcb_astreintes_interventions_facturation (astreinte_intervention_id, astreinte_id, start_date_time, end_date_time, duration, day_night, taux, amount)
-            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $end->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour * $percent * $count).")
+            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $end->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
             ");
 
         } else {
@@ -444,7 +448,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
 
             $this->db->query("
             INSERT INTO mcb_astreintes_interventions_facturation (astreinte_intervention_id, astreinte_id, start_date_time, end_date_time, duration, day_night, taux, amount)
-            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $next_timezone->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour * $percent * $count).")
+            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $next_timezone->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
             ");
             $this->split_by_hours($next_timezone, $end, $hours, $inter);
         }
