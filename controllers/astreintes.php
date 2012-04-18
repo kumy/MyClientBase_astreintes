@@ -25,6 +25,7 @@ class Astreintes extends Admin_Controller {
 		$this->redir->set_last_index();
 
 		$params = array(
+			'order_by'	=>	'start_date desc',
 			'limit'		=>	20,
 			'paginate'	=>	TRUE,
 			'page'		=>	uri_assoc('page', 3)
