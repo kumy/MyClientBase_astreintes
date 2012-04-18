@@ -417,6 +417,12 @@ class Mdl_Astreintes_Interventions extends MY_Model {
         $next_timezone = $this->get_next_timezone ($start);
         $this->print_time($next_timezone, "Next TZ :");
 
+        $percent = $this->percents[$day][$night];
+
+        $ferie = clone $start; $ferie->setTime(0,0);
+        if ($this->isFerie($ferie->getTimestamp())) $percent = 2.00;
+        $jferie = ($this->isFerie($ferie->getTimestamp()) ? 'F' : '');
+
         if ( $this->is_included($next_timezone, $end) ) {
             if ( $this->debug )
             echo "INCLUDED\n";
@@ -424,16 +430,12 @@ class Mdl_Astreintes_Interventions extends MY_Model {
             $count = $this->convert_time_to_dec($start, $end);
             $hours[$day][$night] += $count;
 
-            $percent = $this->percents[$day][$night];
-            $ferie = clone $start; $ferie->setTime(0,0);
-            if ($this->isFerie($ferie->getTimestamp())) $percent = 2.00;
-
             if ( $this->debug )
                 echo 'timestamp start: '.$start->getTimestamp() ."\n";        
 
             $this->db->query("
             INSERT INTO mcb_astreintes_interventions_facturation (astreinte_intervention_id, astreinte_id, start_date_time, end_date_time, duration, day_night, taux, amount)
-            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $end->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
+            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $end->getTimestamp() .", $count, '". $this->jours[$day]."/$night$jferie', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
             ");
 
         } else {
@@ -442,13 +444,9 @@ class Mdl_Astreintes_Interventions extends MY_Model {
             $count = $this->convert_time_to_dec($start, $next_timezone);
             $hours[$day][$night] += $count;
 
-            $percent = $this->percents[$day][$night];
-            $ferie = clone $start; $ferie->setTime(0,0);
-            if ($this->isFerie($ferie->getTimestamp())) $percent = 2.00;
-
             $this->db->query("
             INSERT INTO mcb_astreintes_interventions_facturation (astreinte_intervention_id, astreinte_id, start_date_time, end_date_time, duration, day_night, taux, amount)
-            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $next_timezone->getTimestamp() .", $count, '". $this->jours[$day]."/$night', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
+            VALUES ($inter->astreinte_intervention_id, $inter->astreinte_id, ". $start->getTimestamp() .", ". $next_timezone->getTimestamp() .", $count, '". $this->jours[$day]."/$night$jferie', ". (100*$percent) .", ".($this->oneHour->inventory_unit_price * $percent * $count).")
             ");
             $this->split_by_hours($next_timezone, $end, $hours, $inter);
         }
