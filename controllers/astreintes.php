@@ -71,7 +71,7 @@ class Astreintes extends Admin_Controller {
 
     function dashboard_widget() {
 
-        if ($this->mdl_mcb_data->setting('dashboard_show_astreintes') == "TRUE") {
+        if ($this->mdl_mcb_data->setting('astr_dashboard_show_astreintes') == "TRUE") {
 
             $params = array(
                     'select'   =>  'sum(amount) as total',

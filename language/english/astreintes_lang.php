@@ -31,8 +31,8 @@ $lang['week_we'] = 'Week/WE';
 $lang['day_night'] = 'Day/Night';
 $lang['taux'] = 'Taux';
 $lang['hour'] = 'Hour';
-$lang['nightly_hours_start'] = 'Nightly hours start at';
-$lang['nightly_hours_end'] = 'Nightly hours end at';
+$lang['astr_nightly_hours_start'] = 'Nightly hours start at';
+$lang['astr_nightly_hours_end'] = 'Nightly hours end at';
 
 $lang['forfait'] = 'Forfait';
 $lang['choose_astreinte_forfait'] = 'Choose forfait';
@@ -41,7 +41,7 @@ $lang['return_to_list'] = 'Return to list';
 $lang['return_to_astreinte'] = 'Return to astreinte';
 
 $lang['regen_ticket_times'] = 'Regen Times...';
-$lang['hour_base_amount'] = 'Hour base amount';
+$lang['astr_hour_base_amount'] = 'Hour base amount';
 
 $lang['100_percent'] = '100%';
 $lang['125_percent'] = '125%';

@@ -33,10 +33,10 @@ class Mdl_Astreintes_Interventions extends MY_Model {
         $this->order_by = 'mcb_astreintes_interventions.ticket_id ASC';
 
         $this->h_night = array (
-                'start' => $this->mdl_mcb_data->setting('nightly_hours_start'),
-                'end'   => $this->mdl_mcb_data->setting('nightly_hours_end')
+                'start' => $this->mdl_mcb_data->setting('astr_nightly_hours_start'),
+                'end'   => $this->mdl_mcb_data->setting('astr_nightly_hours_end')
         );
-        $this->oneHour = $this->mdl_mcb_data->setting('hour_base_amount');
+        $this->oneHour = $this->mdl_mcb_data->setting('astr_hour_base_amount');
 
     }
 
