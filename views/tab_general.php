@@ -112,8 +112,11 @@ if ($astreinte_id) {
         </dl>
 <?php } ?>
         <dl>
+<?php
+$astreinte_total = $amount + ( is_object($forfait) ? $forfait->inventory_unit_price : 0 );
+?>
                 <dt><label><?php echo $this->lang->line('amount'); ?>: </label></dt>
-                <dd><?php echo display_currency($amount); ?> + prime <?php if (is_object($forfait)) echo display_currency($forfait->inventory_unit_price); ?></dd>
+                <dd><?php echo display_currency($amount); ?> + prime <?php if (is_object($forfait)) echo display_currency($forfait->inventory_unit_price); ?> (<?php echo display_currency($astreinte_total); ?>)</dd>
         </dl>
 
 </div>

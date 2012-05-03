@@ -143,9 +143,9 @@ class Mdl_Astreintes_Interventions extends MY_Model {
             $end   = clone $start; $end->add($tk_duration_interval);
 
             // debug
-            $this->print_time($start,    "Start tk");
-            $this->print_time($end,      "End   tk");
-            $this->print_time($last_end, "L-End tk");
+            $this->print_time($start,    "Start1 tk");
+            $this->print_time($end,      "End    tk");
+            $this->print_time($last_end, "L-End  tk");
             $this->print_time($tk_duration_interval, "Ticket time (real)");
 
             // Check overlap with last seen ticket
@@ -300,6 +300,9 @@ class Mdl_Astreintes_Interventions extends MY_Model {
             if ( $this->debug )
                 echo "\nAnalysing Tk#$inter->ticket_id\n-------------\n\n";
 
+            if ( $this->debug )
+                print_r($inter);
+
             // ticket duration explode
             $tk_duration = explode (':', $inter->duration_billed);
             $tk_duration_interval = new DateInterval('PT'.$tk_duration[0].'H'.$tk_duration[1].'M');
@@ -309,8 +312,8 @@ class Mdl_Astreintes_Interventions extends MY_Model {
             $end   = clone $start; $end->add($tk_duration_interval);
 
             // debug
-            $this->print_time($start,    "Start tk");
-            $this->print_time($end,      "End   tk");
+            $this->print_time($start,    "Start2 tk");
+            $this->print_time($end,      "End    tk");
             $this->print_time($tk_duration_interval, "Ticket time (real)");
 
             $hours = array();
