@@ -34,11 +34,11 @@ To: <?php echo strftime('%d-%m-%y', $astreinte->end_date); ?><br />
 		<td><?php echo strftime('%d-%m-%y %H:%M', $inter->start_date_time); ?></td>
 		<td><?php echo $inter->duration; ?> (<?php echo $inter->duration_billed; ?>)</td>
     <?php
-    $sorted_taux = array();
+    $sorted_taux = array( 100 => array(), 125 => array(), 150 => array(), 200 => array() );
 
     foreach ($astreinte_intervention_facturation as $fact) {
         if ($fact->astreinte_intervention_id == $inter->astreinte_intervention_id) {
-            $sorted_taux[$fact->taux] = $fact;
+            array_push($sorted_taux[$fact->taux], $fact);
             $hours_sums[$fact->taux] += $fact->duration;
         }
     }
@@ -46,13 +46,15 @@ To: <?php echo strftime('%d-%m-%y', $astreinte->end_date); ?><br />
     foreach ( array(100, 125, 150, 200) as $taux ) {
     ?>
 		<td><?php
-        if (isset( $sorted_taux[$taux] )) {
-            if ( 0 == $sorted_taux[$taux]->duration) {
-                echo '<small><i>included in the earlier statement</i></small>';
-            } else {
-                echo $sorted_taux[$taux]->duration;
-                echo ' <small>('.$sorted_taux[$taux]->day_night;
-                echo ' - '.strftime('%H:%M', $sorted_taux[$taux]->start_date_time).' - '.strftime('%H:%M', $sorted_taux[$taux]->end_date_time).')</small>';
+        if ( sizeof( $sorted_taux[$taux] )) {
+            foreach ( $sorted_taux[$taux] as $a_chunck ) {
+                if ( 0 == $a_chunck->duration) {
+                    echo '<small><i>included in the earlier statement</i></small><br />';
+                } else {
+                    echo $a_chunck->duration;
+                    echo ' <small>('.$a_chunck->day_night;
+                            echo ' - '.strftime('%H:%M', $a_chunck->start_date_time).' - '.strftime('%H:%M', $a_chunck->end_date_time).')</small><br />';
+                }
             }
         } else
             echo '&nbsp;';
