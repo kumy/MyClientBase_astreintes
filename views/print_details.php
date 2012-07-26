@@ -75,6 +75,27 @@ To: <?php echo strftime('%d-%m-%y', $astreinte->end_date); ?><br />
     </tr>
 </table>
 <br />
+<table border=1>
+    <tr>
+		<th width="50%" scope="col"><?php echo $this->lang->line('taux');?></th>
+		<th width="50%" scope="col"><?php echo $this->lang->line('taux_equivalent');?></th>
+    </tr>
+<?php foreach ( array(100, 125, 150, 200) as $taux ) { ?>
+    <tr>
+        <td align="center"><?php echo $taux; ?> %</td>
+<?php 
+        $hour = ( isset($hours_sums[$taux]) ? $hours_sums[$taux] : 0.0);
+        $reduced = 0;
+        foreach ($hours_sums as $taux_in => $hour_in) {
+            $reduced += $hour_in * $taux_in / 100;
+        }
+        $reduced /= ($taux / 100);
+?>
+        <td align="center"><?php echo number_format($reduced, 2); ?></td>
+    </tr>
+<?php } ?>
+</table>
+<br />
 <?php
 
 $width = 1500;

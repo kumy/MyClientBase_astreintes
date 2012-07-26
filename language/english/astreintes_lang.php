@@ -30,6 +30,7 @@ $lang['duration'] = 'Duration';
 $lang['week_we'] = 'Week/WE';
 $lang['day_night'] = 'Day/Night';
 $lang['taux'] = 'Taux';
+$lang['taux_equivalent'] = 'Equivalent Taux';
 $lang['hour'] = 'Hour';
 $lang['astr_nightly_hours_start'] = 'Nightly hours start at';
 $lang['astr_nightly_hours_end'] = 'Nightly hours end at';

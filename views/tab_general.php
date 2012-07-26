@@ -105,10 +105,18 @@ if ($astreinte_id) {
                 <dd><?php echo $hours_of_astreinte_billed; ?>h00</dd>
         </dl>
 
-<?php foreach ($hours as $taux => $hour) { ?>
+<?php
+    foreach (array(100, 125, 150, 200) as $taux) {
+        $hour = ( isset($hours[$taux]) ? $hours[$taux] : 0.0);
+        $reduced = 0;
+        foreach ($hours as $taux_in => $hour_in) {
+           $reduced += $hour_in * $taux_in / 100;
+        }
+        $reduced /= ($taux / 100);
+?>
         <dl>
                 <dt><label><?php echo $this->lang->line('hour')." $taux%"; ?>: </label></dt>
-                <dd><?php echo $hour; ?></dd>
+                <dd><?php echo number_format($hour,2) .' ('.number_format($reduced,2).')'; ?></dd>
         </dl>
 <?php } ?>
         <dl>
