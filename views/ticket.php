@@ -5,8 +5,8 @@
         $(function() {
                 //$("#datetimepicker").datetimepicker();
                 //$(".datetimepicker").datetimepicker();
-                $("#datetimepicker").mask("<?php echo $this->mdl_mcb_data->setting('default_date_format_mask'); ?> 99:99");
-                $(".datetimepicker").mask("<?php echo $this->mdl_mcb_data->setting('default_date_format_mask'); ?> 99:99");
+                $("#datetimepicker").mask("9999/99/99 99:99");
+                $(".datetimepicker").mask("9999/99/99 99:99");
                 $("#timepicker").mask("99:99");
                 $(".timepicker").mask("99:99");
         });
@@ -37,7 +37,7 @@
 
 			<dl>
 			<dt><label><?php echo $this->lang->line('start_date_time');?>: </label></dt>
-			<dd><input class="datetimepicker" type="text" name="start_date_time" value="<?php if ($this->mdl_astreintes_interventions->form_value('start_date_time')) echo strftime('%d/%m/%Y %H:%M', $this->mdl_astreintes_interventions->form_value('start_date_time'));?>" /></dd>
+			<dd><input class="datetimepicker" type="text" name="start_date_time" value="<?php if ($this->mdl_astreintes_interventions->form_value('start_date_time')) echo strftime('%Y/%m/%d %H:%M', $this->mdl_astreintes_interventions->form_value('start_date_time'));?>" /></dd>
 			</dl>
 
 			<dl>

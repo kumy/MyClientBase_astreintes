@@ -66,7 +66,7 @@ class Mdl_Astreintes_Interventions extends MY_Model {
 
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR', 'fra');
-        $db_array['start_date_time'] = DateTime::createFromFormat('d/m/Y H:i', $db_array['start_date_time'])->getTimestamp();
+        $db_array['start_date_time'] = DateTime::createFromFormat('Y/m/d H:i', $db_array['start_date_time'])->getTimestamp();
         $db_array['astreinte_id'] = uri_assoc('astreinte_id', 3);
 
         parent::save($db_array, $astreinte_intervention_id);
