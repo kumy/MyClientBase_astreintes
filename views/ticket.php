@@ -9,7 +9,11 @@
                 $(".datetimepicker").mask("9999/99/99 99:99");
                 $("#timepicker").mask("99:99");
                 $(".timepicker").mask("99:99");
+                $(".duration").click(function(){
+                    $(".timepicker").val($(this).text());
+                    });
         });
+
 </script>
 
 <?php //$this->load->view('dashboard/jquery_date_picker'); ?>
@@ -43,6 +47,19 @@
 			<dl>
 			<dt><label><?php echo $this->lang->line('duration');?>: </label></dt>
 			<dd><input class="timepicker" type="text" name="duration" value="<?php echo $this->mdl_astreintes_interventions->form_value('duration');?>" /></dd>
+			  <dd>
+                <span class="duration">00:05</span> |
+                <span class="duration">00:10</span> |
+                <span class="duration">00:15</span> |
+                <span class="duration">00:20</span> |
+                <span class="duration">00:25</span> |
+                <span class="duration">00:30</span> |
+                <span class="duration">00:35</span> |
+                <span class="duration">00:40</span> |
+                <span class="duration">00:45</span> |
+                <span class="duration">00:50</span> |
+                <span class="duration">01:00</span>
+              </dd>
 			</dl>
 
 			<input type="submit" id="btn_submit" name="btn_submit" value="<?php echo $this->lang->line('submit');?>" />
